@@ -840,6 +840,31 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 })();
 
 
+// ── IMAGE PROTECTION (disable right-click, drag, and common shortcuts on images) ──
+(function initImageProtection() {
+  // Disable right-click on all images
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+
+  // Disable drag on all images
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+
+  // Disable Ctrl+S (save page) and Ctrl+U (view source) as deterrent
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'u')) {
+      e.preventDefault();
+    }
+  });
+})();
+
+
 // ── FLOATING HERO PARTICLES ──
 (function initHeroParticles() {
   var container = document.getElementById('hero-particles');

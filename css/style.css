@@ -46,7 +46,15 @@ body {
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-img { display: block; max-width: 100%; }
+img { 
+  display: block; 
+  max-width: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* Gallery/polaroid clicks go through the overlay, not the image */
+.gallery-item, .polaroid, .destination-card { position: relative; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: none; }
 

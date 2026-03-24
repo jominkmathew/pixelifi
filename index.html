@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixelifi &mdash; Photography Portfolio</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="images/favicon.png" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- SVG filters for pencil-sketch feel -->
+  <svg class="svg-filters" aria-hidden="true" style="position:absolute;width:0;height:0">
+    <defs>
+      <filter id="pencil-rough">
+        <feTurbulence type="turbulence" baseFrequency="0.03" numOctaves="4" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="paper-grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="grain" />
+        <feColorMatrix type="saturate" values="0" in="grain" result="desaturated" />
+        <feBlend in="SourceGraphic" in2="desaturated" mode="multiply" result="blended" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ======================== CUSTOM CURSOR ======================== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- ======================== LOADER ======================== -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-line"></div>
+      <span class="loader-text">Pixelifi</span>
+    </div>
+  </div>
+
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo"><span class="nav-logo-img" role="img" aria-label="Pixelifi logo"></span><span class="nav-logo-text">Pixelifi</span></a>
+    <div class="nav-links">
+      <a href="#gallery" class="nav-link" data-text="Gallery">Gallery</a>
+      <a href="#stories" class="nav-link" data-text="Journal">Journal</a>
+      <a href="#about" class="nav-link" data-text="About">About</a>
+      <a href="#contact" class="nav-link" data-text="Contact">Contact</a>
+    </div>
+    <button class="nav-menu-btn" id="menu-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#gallery" class="mobile-link">Gallery</a>
+    <a href="#stories" class="mobile-link">Journal</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ======================== HERO SECTION ======================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-image" id="hero-bg-image"></div>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Floating dust particles -->
+    <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
+
+
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge reveal-text">
+          <span class="hero-badge-dot"></span>
+          <span>18 Curated Photographs</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="title-line reveal-text">Through</span>
+          <span class="title-line reveal-text">My <em class="accent">Lens</em></span>
+        </h1>
+        <p class="hero-desc reveal-text">From the sacred peaks of the Himalayas to the ghost town of Dhanushkodi — every photograph carries the soul of a place, frozen in a single frame.</p>
+        <div class="hero-actions reveal-text">
+          <a href="#gallery" class="hero-cta primary">
+            <span>Explore Destinations</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#stories" class="hero-cta secondary">
+            <span>Read Stories</span>
+          </a>
+        </div>
+        <div class="hero-locations reveal-text">
+          <span class="hero-loc">Kerala</span>
+          <span class="hero-loc-dot"></span>
+          <span class="hero-loc">Dubai</span>
+          <span class="hero-loc-dot"></span>
+          <span class="hero-loc">Nepal</span>
+          <span class="hero-loc-dot"></span>
+          <span class="hero-loc">Tamil Nadu</span>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Torn-paper divider -->
+  <div class="section-divider divider-torn" aria-hidden="true">
+    <svg viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,20 Q60,5 120,20 T240,20 T360,20 T480,20 T600,20 T720,20 T840,20 T960,20 T1080,20 T1200,20 T1320,20 T1440,20 V40 H0 Z" fill="var(--dark)"/></svg>
+  </div>
+
+  <!-- ======================== GALLERY SECTION (DARK MINIMAL + MASONRY) ======================== -->
+  <section class="gallery section" id="gallery">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title reveal-text">Selected Works</h2>
+      <p class="section-subtitle reveal-text">Explore destinations through the lens — click a location to discover more</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="gallery-filters reveal-brush">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="thiruvananthapuram">Thiruvananthapuram</button>
+      <button class="filter-btn" data-filter="dhanushkodi">Dhanushkodi</button>
+      <button class="filter-btn" data-filter="dubai">Dubai</button>
+      <button class="filter-btn" data-filter="himalayas">Himalayas & Nepal</button>
+      <button class="filter-btn" data-filter="others">Other Places</button>
+    </div>
+
+    <!-- ===== DESTINATION CARDS (Hero view - one per location) ===== -->
+    <div class="destinations-grid" id="destinations-grid">
+
+      <div class="destination-card" data-location="thiruvananthapuram">
+        <div class="destination-img">
+          <img src="images/IMG_3004.jpg" alt="Thiruvananthapuram" loading="lazy" />
+          <div class="destination-overlay">
+            <span class="destination-count">6 Photos</span>
+            <h3 class="destination-name">Thiruvananthapuram</h3>
+            <p class="destination-tagline">God's Own Capital — beaches, palaces, and heritage</p>
+            <button class="explore-btn" data-location="thiruvananthapuram">Explore More &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="destination-card" data-location="dhanushkodi">
+        <div class="destination-img">
+          <img src="images/IMG_4173.jpg" alt="Dhanushkodi" loading="lazy" />
+          <div class="destination-overlay">
+            <span class="destination-count">3 Photos</span>
+            <h3 class="destination-name">Dhanushkodi</h3>
+            <p class="destination-tagline">The ghost town where two oceans meet</p>
+            <button class="explore-btn" data-location="dhanushkodi">Explore More &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="destination-card" data-location="dubai">
+        <div class="destination-img">
+          <img src="images/IMG_5114.jpg" alt="Dubai" loading="lazy" />
+          <div class="destination-overlay">
+            <span class="destination-count">2 Photos</span>
+            <h3 class="destination-name">Dubai</h3>
+            <p class="destination-tagline">Where the future rises from the desert</p>
+            <button class="explore-btn" data-location="dubai">Explore More &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="destination-card" data-location="himalayas">
+        <div class="destination-img">
+          <img src="images/1.JPG" alt="Himalayas" loading="lazy" />
+          <div class="destination-overlay">
+            <span class="destination-count">2 Photos</span>
+            <h3 class="destination-name">Himalayas & Nepal</h3>
+            <p class="destination-tagline">Touching the sky — sacred peaks and mountain glory</p>
+            <button class="explore-btn" data-location="himalayas">Explore More &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="destination-card" data-location="others">
+        <div class="destination-img">
+          <img src="images/IMG_0906.jpg" alt="More Places" loading="lazy" />
+          <div class="destination-overlay">
+            <span class="destination-count">5 Photos</span>
+            <h3 class="destination-name">Other Places</h3>
+            <p class="destination-tagline">Kanyakumari, Nandi Hills, Kollam & more</p>
+            <button class="explore-btn" data-location="others">Explore More &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== FULL GALLERY GRID (shown when exploring a location or "All") ===== -->
+    <div class="gallery-back-bar" id="gallery-back-bar" style="display:none;">
+      <button class="back-to-destinations" id="back-to-destinations">&larr; Back to Destinations</button>
+      <span class="gallery-location-title" id="gallery-location-title"></span>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid" style="display:none;">
+
+      <!-- Thiruvananthapuram -->
+      <div class="gallery-item tall" data-category="thiruvananthapuram" data-index="0">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_3004.jpg" alt="Twilight Shore" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Twilight Shore</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item wide" data-category="thiruvananthapuram" data-index="4">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_1993.jpg" alt="Kanakakkunnu Palace" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Kanakakkunnu Palace</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="thiruvananthapuram" data-index="5">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_2465.jpg" alt="Poovar Island" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Poovar Island</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="thiruvananthapuram" data-index="7">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_4204.jpg" alt="Sea Sunlight" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Sea Sunlight</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="thiruvananthapuram" data-index="10">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_4647.jpg" alt="Mateer Memorial CSI Church" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Mateer Memorial Church</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="thiruvananthapuram" data-index="13">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_7860.jpg" alt="Vizhinjam Harbour" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Thiruvananthapuram</span>
+            <h3 class="gallery-item-title">Vizhinjam Harbour</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dhanushkodi -->
+      <div class="gallery-item" data-category="dhanushkodi" data-index="6">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_4173.jpg" alt="Dhanushkodi Bridge" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Dhanushkodi</span>
+            <h3 class="gallery-item-title">Dhanushkodi Bridge</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="dhanushkodi" data-index="8">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_4217.jpg" alt="Dhanushkodi Church" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Dhanushkodi</span>
+            <h3 class="gallery-item-title">Dhanushkodi Church</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="dhanushkodi" data-index="9">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_4220.jpg" alt="Dhanushkodi Lighthouse" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Dhanushkodi</span>
+            <h3 class="gallery-item-title">Dhanushkodi Lighthouse</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dubai -->
+      <div class="gallery-item wide" data-category="dubai" data-index="11">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_5114.jpg" alt="New Dubai Skyline" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Dubai</span>
+            <h3 class="gallery-item-title">New Dubai</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="dubai" data-index="12">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_5200.jpg" alt="Dubai Marina" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Dubai</span>
+            <h3 class="gallery-item-title">Dubai Marina</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Himalayas & Nepal -->
+      <div class="gallery-item wide" data-category="himalayas" data-index="1">
+        <div class="gallery-img-wrap">
+          <img src="images/1.JPG" alt="Himalayan Glow" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Himalayas</span>
+            <h3 class="gallery-item-title">Himalayan Glow</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item wide" data-category="himalayas" data-index="14">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_9352.jpg" alt="Machhapuchhare" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Nepal</span>
+            <h3 class="gallery-item-title">Machhapuchhare</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Others: Kanyakumari, Nandi Hills, Kollam, Wildlife, Beach -->
+      <div class="gallery-item tall" data-category="others" data-index="3">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_1759.jpg" alt="Thiruvalluvar Statue" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Kanyakumari</span>
+            <h3 class="gallery-item-title">Thiruvalluvar Statue</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="others" data-index="2">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_0906.jpg" alt="Above the Clouds" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Nandi Hills</span>
+            <h3 class="gallery-item-title">Above the Clouds</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item wide" data-category="others" data-index="17">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_20220613_185131_Original.jpg" alt="Munroe Island" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Kollam</span>
+            <h3 class="gallery-item-title">Munroe Island</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="others" data-index="15">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_9457.jpg" alt="Eagle in Flight" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Wildlife</span>
+            <h3 class="gallery-item-title">Eagle in Flight</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="others" data-index="16">
+        <div class="gallery-img-wrap">
+          <img src="images/IMG_9863.jpg" alt="Beach Friendship" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">Moments</span>
+            <h3 class="gallery-item-title">Beach Friendship</h3>
+            <p class="gallery-item-hint">Click to read the story &rarr;</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== PHOTO STORY MODAL ======================== -->
+  <div class="story-modal" id="story-modal">
+    <button class="story-close" id="story-close" aria-label="Close">&times;</button>
+    <div class="story-content">
+      <div class="story-image-side">
+        <img id="story-img" src="" alt="" />
+      </div>
+      <div class="story-text-side">
+        <span class="story-category" id="story-category"></span>
+        <h2 class="story-title" id="story-title"></h2>
+        <div class="story-meta">
+          <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <span class="meta-value" id="story-date"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-value" id="story-location"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Camera</span>
+            <span class="meta-value" id="story-camera"></span>
+          </div>
+        </div>
+        <div class="story-divider"></div>
+        <p class="story-description" id="story-desc"></p>
+        <p class="story-history" id="story-history"></p>
+        <div class="story-tags" id="story-tags"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== PHOTO JOURNAL / POLAROID WALL SECTION ======================== -->
+  <section class="stories section" id="stories">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title reveal-text" style="color: var(--dark)">Photo Journal</h2>
+      <p class="section-subtitle reveal-text" style="color: #666">Snapshots pinned from the road &mdash; memories that stayed</p>
+    </div>
+    <div class="polaroid-wall">
+      <div class="polaroid" style="--tilt: -2.5deg">
+        <div class="polaroid-photo"><img src="images/IMG_3004.jpg" alt="Twilight Shore" loading="lazy" /></div>
+        <p class="polaroid-caption">Twilight Shore &mdash; Thumba</p>
+      </div>
+      <div class="polaroid" style="--tilt: 1.8deg">
+        <div class="polaroid-photo"><img src="images/1.JPG" alt="Himalayan Glow" loading="lazy" /></div>
+        <p class="polaroid-caption">Himalayan Glow &mdash; Nepal</p>
+      </div>
+      <div class="polaroid" style="--tilt: -1.2deg">
+        <div class="polaroid-photo"><img src="images/IMG_0906.jpg" alt="Above the Clouds" loading="lazy" /></div>
+        <p class="polaroid-caption">Above the Clouds &mdash; Nandi Hills</p>
+      </div>
+      <div class="polaroid" style="--tilt: 3deg">
+        <div class="polaroid-photo"><img src="images/IMG_4173.jpg" alt="Dhanushkodi Bridge" loading="lazy" /></div>
+        <p class="polaroid-caption">Dhanushkodi Bridge</p>
+      </div>
+      <div class="polaroid" style="--tilt: -0.8deg">
+        <div class="polaroid-photo"><img src="images/IMG_5114.jpg" alt="New Dubai" loading="lazy" /></div>
+        <p class="polaroid-caption">New Dubai &mdash; UAE</p>
+      </div>
+      <div class="polaroid" style="--tilt: 2.2deg">
+        <div class="polaroid-photo"><img src="images/IMG_9352.jpg" alt="Machhapuchhare" loading="lazy" /></div>
+        <p class="polaroid-caption">Machhapuchhare &mdash; Nepal</p>
+      </div>
+      <div class="polaroid" style="--tilt: -1.5deg">
+        <div class="polaroid-photo"><img src="images/IMG_9457.jpg" alt="Eagle in Flight" loading="lazy" /></div>
+        <p class="polaroid-caption">Eagle in Flight</p>
+      </div>
+      <div class="polaroid" style="--tilt: 0.5deg">
+        <div class="polaroid-photo"><img src="images/IMG_2465.jpg" alt="Poovar Island" loading="lazy" /></div>
+        <p class="polaroid-caption">Poovar Island &mdash; Kerala</p>
+      </div>
+      <div class="polaroid" style="--tilt: -2deg">
+        <div class="polaroid-photo"><img src="images/IMG_4217.jpg" alt="Dhanushkodi Church" loading="lazy" /></div>
+        <p class="polaroid-caption">Dhanushkodi Church</p>
+      </div>
+      <div class="polaroid" style="--tilt: 1.5deg">
+        <div class="polaroid-photo"><img src="images/IMG_7860.jpg" alt="Vizhinjam Harbour" loading="lazy" /></div>
+        <p class="polaroid-caption">Vizhinjam Harbour</p>
+      </div>
+      <div class="polaroid" style="--tilt: -3deg">
+        <div class="polaroid-photo"><img src="images/IMG_20220613_185131_Original.jpg" alt="Munroe Island" loading="lazy" /></div>
+        <p class="polaroid-caption">Munroe Island &mdash; Kollam</p>
+      </div>
+      <div class="polaroid" style="--tilt: 2.5deg">
+        <div class="polaroid-photo"><img src="images/IMG_9863.jpg" alt="Beach Friendship" loading="lazy" /></div>
+        <p class="polaroid-caption">Beach Friendship</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== ABOUT SECTION (BRIGHT EDITORIAL) ======================== -->
+  <section class="about section" id="about">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title dark reveal-text">About the Photographer</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-image reveal-slide reveal-ink">
+        <img src="images/8AA773F1-01A6-41BC-98B1-A1A11071E358.png" alt="Photographer" loading="lazy" />
+        <div class="about-image-accent"></div>
+      </div>
+      <div class="about-text">
+        <h3 class="reveal-text">The eye behind the lens</h3>
+        <p class="reveal-text">I'm a travel and landscape photographer from India, drawn to the places where light tells a story. From the sacred Himalayan peaks to the ghost town of Dhanushkodi, from Kerala's backwaters to Dubai's towering skyline &mdash; I chase moments that most people walk past.</p>
+        <p class="reveal-text">Every photograph I take is a conversation with a place &mdash; its history, its silence, its mood. I believe the best frames aren't planned; they happen when you slow down, look closer, and let the world reveal itself.</p>
+        <div class="about-stats reveal-text">
+          <div class="stat">
+            <span class="stat-number">18</span>
+            <span class="stat-label">Curated Shots</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Destinations</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Years</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CONTACT SECTION ======================== -->
+  <section class="contact section" id="contact">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title reveal-text">Get in Touch</h2>
+      <p class="section-subtitle reveal-text">Let's create something beautiful together</p>
+    </div>
+    <div class="contact-content">
+      <form class="contact-form" id="contact-form" onsubmit="return false;">
+        <div class="form-group reveal-text">
+          <input type="text" id="name" placeholder=" " required autocomplete="name" />
+          <label for="name">Your Name</label>
+          <div class="form-line"></div>
+        </div>
+        <div class="form-group reveal-text">
+          <input type="email" id="email" placeholder=" " required autocomplete="email" />
+          <label for="email">Email Address</label>
+          <div class="form-line"></div>
+        </div>
+        <div class="form-group reveal-text">
+          <textarea id="message" placeholder=" " required rows="4"></textarea>
+          <label for="message">Your Message</label>
+          <div class="form-line"></div>
+        </div>
+        <button type="submit" class="submit-btn reveal-text">
+          <span>Send Message</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <div class="form-feedback" id="form-feedback"></div>
+      </form>
+      <div class="contact-info">
+        <div class="contact-info-item reveal-text">
+          <span class="contact-label">Email</span>
+          <a href="mailto:hello@pixelifi.com">hello@pixelifi.com</a>
+        </div>
+        <div class="contact-info-item reveal-text">
+          <span class="contact-label">Based in</span>
+          <span>Worldwide</span>
+        </div>
+        <div class="contact-social reveal-text">
+          <a href="#" aria-label="Instagram" class="social-link">Instagram</a>
+          <a href="#" aria-label="Twitter" class="social-link">Twitter</a>
+          <a href="#" aria-label="Behance" class="social-link">Behance</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer" id="footer">
+    <span>&copy; 2026 Pixelifi Photography. All rights reserved.</span>
+    <a href="#hero">Back to top &uarr;</a>
+  </footer>
+
+  <!-- ======================== SCRIPTS (CDN) ======================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/three-scene.js"></script>
+</body>
+</html>

@@ -2034,3 +2034,175 @@ html {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50%      { opacity: 0.6; transform: scale(1.05); }
 }
+
+/* ===============================================================
+   MOBILE & RESPONSIVE — Comprehensive Mobile Support
+   =============================================================== */
+
+/* Use hover media query for cursor — better than breakpoint */
+@media (pointer: coarse) {
+  .cursor, .cursor-follower { display: none !important; }
+  body { cursor: auto !important; }
+  button, a, .gallery-item, .polaroid, .destination-card { cursor: pointer !important; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .particle { display: none !important; }
+}
+
+/* ── Tablet (max-width: 768px) ── */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-title { font-size: clamp(2.2rem, 6vw, 4rem); }
+  .hero-desc { font-size: 0.95rem; max-width: 100%; }
+  .hero-particles { display: none; }
+
+  /* Gallery */
+  .gallery-item.wide { grid-column: span 1; }
+
+  /* Destination cards */
+  .destinations-grid { grid-template-columns: 1fr; }
+  .destination-card { height: 280px; }
+  .explore-btn { opacity: 1; transform: translateY(0); }
+
+  /* Story modal */
+  .story-modal { padding: 1rem; }
+  .story-content { flex-direction: column; gap: 1.5rem; overflow-y: auto; }
+  .story-image-side img { max-height: 35vh; }
+  .story-title { font-size: clamp(1.4rem, 4vw, 1.8rem); }
+  .story-text-side { padding-right: 0; }
+
+  /* About */
+  .about-content { flex-direction: column; gap: 2rem; }
+  .about-image { flex: 0 0 auto; max-width: 280px; margin: 0 auto; }
+  .about-stats { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .stat-number { font-size: 2rem !important; }
+
+  /* Contact */
+  .contact-content { flex-direction: column; gap: 2rem; }
+  .contact-info { flex: 0 0 auto; }
+
+  /* Footer */
+  .footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem 1rem; }
+
+  /* Divider */
+  .divider-torn svg { height: 25px; }
+
+  /* Scroll progress thinner */
+  .scroll-progress { height: 2px; }
+}
+
+/* ── Small phones (max-width: 480px) ── */
+@media (max-width: 480px) {
+  /* Global */
+  .section { padding: 3.5rem 1rem; }
+  .section-header { margin-bottom: 2.5rem; }
+  .section-number { font-size: 2rem !important; }
+  .section-title { font-size: clamp(1.6rem, 5vw, 2.5rem) !important; }
+  .section-subtitle { font-size: 0.95rem !important; }
+
+  /* Hero */
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 0 1.2rem; }
+  .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .hero-badge { font-size: 0.65rem; padding: 0.4rem 0.8rem; }
+  .hero-desc { font-size: 0.9rem; line-height: 1.7; }
+  .hero-actions { flex-direction: column; width: 100%; gap: 0.8rem; }
+  .hero-cta { width: 100%; justify-content: center; padding: 0.8rem 1.5rem; }
+  .hero-locations { gap: 0.5rem; }
+  .hero-loc { font-size: 0.65rem; }
+
+  /* Gallery */
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .gallery-item.wide { grid-column: span 1; }
+  .gallery-item.tall { grid-row: span 1; }
+  .gallery-filters { gap: 0.4rem; }
+  .filter-btn { padding: 0.5rem 0.8rem; font-size: 0.7rem; min-height: 44px; }
+
+  /* Destination cards */
+  .destination-card { height: 250px; }
+  .destination-name { font-size: 1.3rem !important; }
+  .destination-tagline { font-size: 0.8rem; }
+
+  /* Polaroids */
+  .polaroid-wall { gap: 0.6rem; padding: 0.5rem 0.5rem 2rem; }
+  .polaroid { width: 130px; padding: 5px 5px 28px; }
+  .polaroid-photo { height: 120px; }
+  .polaroid-caption { font-size: 0.75rem !important; }
+
+  /* About */
+  .about-image { max-width: 100% !important; }
+  .about-text h3 { font-size: 1.5rem !important; }
+  .about-text p { font-size: 0.9rem; }
+  .about-stats { gap: 1rem; }
+  .stat-number { font-size: 1.8rem !important; }
+
+  /* Contact form */
+  .contact-content { gap: 2rem; }
+  .form-group input, .form-group textarea { font-size: 16px !important; } /* prevent iOS zoom */
+  .submit-btn { width: 100%; justify-content: center; }
+
+  /* Story modal */
+  .story-modal { padding: 0.5rem; }
+  .story-close { top: 0.5rem; right: 0.5rem; font-size: 2rem; }
+  .story-content { max-height: 95vh; }
+  .story-image-side img { max-height: 30vh; }
+  .story-meta { gap: 1rem; }
+  .story-description { font-size: 0.9rem; }
+  .story-history { font-size: 0.85rem; }
+  .story-tags span { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+
+  /* Nav */
+  .nav { padding: 0.8rem 1rem; }
+  .nav-logo-text { font-size: 1.4rem !important; }
+  .nav-logo-img { width: 24px; height: 24px; }
+
+  /* Back bar */
+  .gallery-back-bar { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+}
+
+/* ── Extra small phones (max-width: 360px) ── */
+@media (max-width: 360px) {
+  .hero-title { font-size: 1.8rem; }
+  .polaroid { width: 110px; padding: 4px 4px 24px; }
+  .polaroid-photo { height: 100px; }
+  .polaroid-wall { gap: 0.4rem; }
+  .destination-card { height: 220px; }
+  .filter-btn { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
+}
+
+/* ── Tap target sizes for touch devices ── */
+@media (pointer: coarse) {
+  .filter-btn,
+  .explore-btn,
+  .submit-btn,
+  .nav-link,
+  .social-link,
+  .back-to-destinations,
+  .hero-cta {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-menu-btn { min-width: 44px; min-height: 44px; }
+  .story-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+}
+
+/* ── Safe area for notched phones ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .footer {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .nav {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+  .story-modal {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+}

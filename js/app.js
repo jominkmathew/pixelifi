@@ -347,27 +347,29 @@ window.addEventListener('load', () => {
     });
   });
 
-  // Parallax hero bg — slow paint drift
-  gsap.to('.hero-bg-image', {
-    yPercent: 15,
-    scale: 1.05,
-    ease: 'none',
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
-  });
-
-  // Section headers — subtle parallax float
-  document.querySelectorAll('.section-header').forEach(function (header) {
-    gsap.to(header, {
-      y: -20,
+  // Parallax hero bg — slow paint drift (desktop only)
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    gsap.to('.hero-bg-image', {
+      yPercent: 15,
+      scale: 1.05,
       ease: 'none',
-      scrollTrigger: {
-        trigger: header,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 2,
-      }
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
     });
-  });
+
+    // Section headers — subtle parallax float
+    document.querySelectorAll('.section-header').forEach(function (header) {
+      gsap.to(header, {
+        y: -20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: header,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 2,
+        }
+      });
+    });
+  }
 
   // Polaroid wall — stagger-scatter on scroll
   document.querySelectorAll('.polaroid').forEach(function (pol, i) {
@@ -794,8 +796,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 })();
 
 
-// ── DESTINATION CARD 3D TILT ON MOUSEMOVE ──
+// ── DESTINATION CARD 3D TILT ON MOUSEMOVE (desktop only) ──
 (function initCardTilt() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   var cards = document.querySelectorAll('.destination-card');
   cards.forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
@@ -817,8 +820,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 })();
 
 
-// ── GALLERY IMAGE INNER PARALLAX ON MOUSEMOVE ──
+// ── GALLERY IMAGE INNER PARALLAX ON MOUSEMOVE (desktop only) ──
 (function initGalleryParallax() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   var items = document.querySelectorAll('.gallery-item');
   items.forEach(function (item) {
     item.addEventListener('mousemove', function (e) {
@@ -865,10 +869,12 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 })();
 
 
-// ── FLOATING HERO PARTICLES ──
+// ── FLOATING HERO PARTICLES (reduced on mobile) ──
 (function initHeroParticles() {
   var container = document.getElementById('hero-particles');
   if (!container) return;
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  if (isMobile) return; // disabled on mobile for performance
   var count = 25;
   for (var i = 0; i < count; i++) {
     var p = document.createElement('div');
@@ -890,8 +896,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 })();
 
 
-// ── TEXT SCRAMBLE EFFECT ON SECTION TITLES ──
+// ── TEXT SCRAMBLE EFFECT ON SECTION TITLES (desktop only) ──
 (function initTextScramble() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   var chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~';
   var titles = document.querySelectorAll('.section-title');
   titles.forEach(function (title) {

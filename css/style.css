@@ -28,8 +28,11 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) var(--dark);
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +42,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 ::selection { background: var(--accent); color: var(--dark); }
@@ -107,9 +111,10 @@ body.cursor-hover .cursor-follower {
   background: var(--dark);
   z-index: 9998;
   display: flex; align-items: center; justify-content: center;
-  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s 1s;
+  transition: -webkit-clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s 1s;
 }
 .loader.hidden {
+  -webkit-clip-path: circle(0% at 50% 50%);
   clip-path: circle(0% at 50% 50%);
   opacity: 0;
   visibility: hidden;
@@ -155,10 +160,11 @@ body.cursor-hover .cursor-follower {
   z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.5rem 3rem;
-  transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+  transition: background 0.4s, -webkit-backdrop-filter 0.4s, backdrop-filter 0.4s, padding 0.4s;
 }
 .nav.scrolled {
   background: rgba(10,10,10,0.85);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   padding: 1rem 3rem;
 }
@@ -230,11 +236,13 @@ body.cursor-hover .cursor-follower {
   z-index: 99;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 2rem;
+  -webkit-clip-path: circle(0% at top right);
   clip-path: circle(0% at top right);
   opacity: 0; visibility: hidden;
-  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s, visibility 0.5s;
+  transition: -webkit-clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1), clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s, visibility 0.5s;
 }
 .mobile-menu.open {
+  -webkit-clip-path: circle(150% at top right);
   clip-path: circle(150% at top right);
   opacity: 1; visibility: visible;
 }
@@ -264,7 +272,9 @@ body.cursor-hover .cursor-follower {
 /* ── HERO SECTION ── */
 .hero {
   position: relative;
-  height: 100vh; min-height: 700px;
+  height: 100vh;
+  height: 100dvh; /* iOS Safari dynamic viewport */
+  min-height: 600px;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
@@ -584,19 +594,23 @@ body.cursor-hover .cursor-follower {
 
 /* Ink-drop reveal: for images that splash into view */
 .reveal-ink {
+  -webkit-clip-path: circle(0% at 50% 50%);
   clip-path: circle(0% at 50% 50%);
-  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: -webkit-clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .reveal-ink.revealed {
+  -webkit-clip-path: circle(75% at 50% 50%);
   clip-path: circle(75% at 50% 50%);
 }
 
 /* Brush-wipe mask: element paints in from left */
 .reveal-brush {
+  -webkit-clip-path: inset(0 100% 0 0);
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: -webkit-clip-path 1s cubic-bezier(0.77, 0, 0.175, 1), clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .reveal-brush.revealed {
+  -webkit-clip-path: inset(0 0% 0 0);
   clip-path: inset(0 0% 0 0);
 }
 
@@ -683,11 +697,13 @@ body.cursor-hover .cursor-follower {
   padding: 1.5rem;
   background: linear-gradient(transparent 30%, rgba(10,10,10,0.9));
   opacity: 0;
+  -webkit-clip-path: inset(100% 0 0 0);
   clip-path: inset(100% 0 0 0);
-  transition: opacity 0.6s, clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: opacity 0.6s, -webkit-clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1), clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .gallery-item:hover .gallery-item-overlay {
   opacity: 1;
+  -webkit-clip-path: inset(0 0 0 0);
   clip-path: inset(0 0 0 0);
 }
 
@@ -892,6 +908,7 @@ body.cursor-hover .cursor-follower {
   display: flex; align-items: center; justify-content: center;
   opacity: 0; visibility: hidden;
   transition: opacity 0.5s, visibility 0.5s;
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   padding: 2rem;
 }

@@ -2053,6 +2053,231 @@ html {
 }
 
 /* ===============================================================
+   PREMIUM VISUAL LAYER — Glass, Glow, Gradients, Micro-interactions
+   =============================================================== */
+
+/* ── Hero title glow + gradient text ── */
+.hero-title {
+  text-shadow:
+    0 0 40px rgba(200,149,108,0.15),
+    0 0 80px rgba(200,149,108,0.05);
+}
+
+/* ── Animated ambient gradient on hero overlay ── */
+.hero-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(200,149,108,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(200,149,108,0.05) 0%, transparent 50%);
+  animation: ambientShift 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes ambientShift {
+  0%   { opacity: 0.5; transform: scale(1) translate(0, 0); }
+  50%  { opacity: 1; transform: scale(1.1) translate(-2%, 2%); }
+  100% { opacity: 0.6; transform: scale(1.05) translate(2%, -1%); }
+}
+
+/* ── Glass-morphism on destination card overlays ── */
+.destination-overlay {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.destination-card:hover .destination-overlay {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Gallery overlay glass effect ── */
+.gallery-item-overlay {
+  -webkit-backdrop-filter: blur(6px) saturate(1.4);
+  backdrop-filter: blur(6px) saturate(1.4);
+  background: linear-gradient(transparent 20%, rgba(10,10,10,0.75)) !important;
+}
+
+/* ── Gallery hover: staggered overlay text ── */
+.gallery-item:hover .gallery-item-category {
+  animation: slideInUp 0.4s var(--ease-out) both;
+}
+.gallery-item:hover .gallery-item-title {
+  animation: slideInUp 0.4s var(--ease-out) 0.08s both;
+}
+.gallery-item:hover .gallery-item-hint {
+  animation: slideInUp 0.4s var(--ease-out) 0.16s both;
+}
+@keyframes slideInUp {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Destination card hover: shimmer shine sweep ── */
+.destination-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.06) 45%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.06) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: inherit;
+}
+.destination-card:hover::after {
+  transform: translateX(100%);
+}
+
+/* ── Polaroid hover glow ring ── */
+.polaroid::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, var(--accent), transparent, var(--accent-2));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+.polaroid:hover::after {
+  opacity: 0.3;
+}
+
+/* ── Section background gradient transitions ── */
+.gallery {
+  background: linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+}
+.contact {
+  background: linear-gradient(180deg, var(--dark-2) 0%, #090909 100%);
+}
+
+/* ── Animated gradient border on about image ── */
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 6px;
+  background: linear-gradient(45deg, var(--accent), var(--accent-2), transparent, var(--accent));
+  background-size: 300% 300%;
+  animation: gradientBorder 4s ease infinite;
+  z-index: 0;
+  opacity: 0.5;
+}
+@keyframes gradientBorder {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Stats counter glow on reveal ── */
+.stat-number {
+  transition: text-shadow 0.6s ease;
+}
+.stat:hover .stat-number {
+  text-shadow: 0 0 20px rgba(200,149,108,0.5), 0 0 40px rgba(200,149,108,0.2);
+}
+
+/* ── Contact form input focus glow ── */
+.form-group input:focus,
+.form-group textarea:focus {
+  text-shadow: 0 0 8px rgba(200,149,108,0.1);
+}
+.form-line {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2)) !important;
+  box-shadow: 0 0 8px rgba(200,149,108,0.3);
+}
+
+/* ── Social links hover gradient text ── */
+.social-link:hover {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Nav logo subtle glow ── */
+.nav-logo:hover .nav-logo-text {
+  text-shadow: 0 0 20px rgba(200,149,108,0.3);
+}
+
+/* ── Hero badge glass pill ── */
+.hero-badge {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(200,149,108,0.06) !important;
+  border: 1px solid rgba(200,149,108,0.15) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* ── Gallery filter btn active glow ── */
+.filter-btn.active {
+  box-shadow: 0 0 12px rgba(200,149,108,0.2), inset 0 0 12px rgba(200,149,108,0.05);
+}
+
+/* ── Scroll indicator glow pulse ── */
+.scroll-indicator span {
+  text-shadow: 0 0 10px rgba(200,149,108,0.3);
+}
+.scroll-line {
+  box-shadow: 0 0 6px rgba(200,149,108,0.3);
+}
+
+/* ── Explore button hover glow ── */
+.explore-btn:hover {
+  box-shadow: 0 0 20px rgba(200,149,108,0.3), 0 4px 15px rgba(0,0,0,0.3) !important;
+}
+
+/* ── Story modal glass header ── */
+.story-category {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background: rgba(200,149,108,0.08);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+/* ── Section number decorative glow ── */
+.section-number {
+  text-shadow: 0 0 30px rgba(200,149,108,0.15);
+}
+
+/* ── Footer gradient top border ── */
+.footer {
+  border-top: none !important;
+  border-image: linear-gradient(90deg, transparent, var(--accent), transparent) 1 !important;
+  border-top-width: 1px !important;
+  border-top-style: solid !important;
+}
+
+/* ── Smooth color band between sections ── */
+.stories::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(180deg, var(--dark) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+.stories::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(0deg, var(--light) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ===============================================================
    MOBILE & RESPONSIVE — Comprehensive Mobile Support
    =============================================================== */
 
